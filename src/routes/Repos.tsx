@@ -11,7 +11,7 @@ import classes from "./Repos.module.css";
 const Repos = () => {
   const { username } = useParams();
 
-  const [repo, setRepos] = useState<RepoProps[] | [] | null>(null);
+  const [repos, setRepos] = useState<RepoProps[] | [] | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,15 +25,28 @@ const Repos = () => {
 
       setIsLoading(false);
 
-      console.log(data);
+      setRepos(data);
     };
 
+    if (username) {
+      loadRepos(username);
+    }
   }, []);
+
+  if (!repos && isLoading) return <Loader />;
 
   return (
     <div>
       <BackBtn />
-      Repos {username}
+      <h2>Explore os repositórios do usuário: {username}</h2>
+      {repos && repos.length === 0 && <p>Não há repositórios.</p>}
+      {repos && repos.length > 0 && (
+        <div>
+            {repos.map((repo: RepoProps) => (
+                <p>{repo.name}</p>
+            ))}
+        </div>
+      )}
     </div>
   );
 };
