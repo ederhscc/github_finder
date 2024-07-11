@@ -4,12 +4,14 @@ import { BsCodeSlash } from "react-icons/bs";
 import { AiOutlineStar, AiOutlineFork } from "react-icons/ai";
 import { RiGitRepositoryLine } from "react-icons/ri";
 
+import classes from "./Repo.module.css"
+
 const Repo = ({
   name,
   language,
   html_url,
   forks_count,
-  stargazes_count,
+  stargazers_count,
 }: RepoProps) => {
   return (
     <div>
@@ -21,7 +23,7 @@ const Repo = ({
       <div>
         <div>
           <AiOutlineStar />
-          <span>{stargazes_count}</span>
+          <span>{stargazers_count}</span>
         </div>
         <div>
           <AiOutlineFork />
