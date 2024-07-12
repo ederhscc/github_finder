@@ -26,7 +26,15 @@ const Repos = () => {
 
       setIsLoading(false);
 
-      setRepos(data);
+      // Ordena dos melhores repositórios para os menos bons.
+      let orderedRepos = data.sort(
+        (a: RepoProps, b: RepoProps) => b.stargazers_count - a.stargazers_count
+      );
+
+      // Pegas os primeiros 5 repositórios
+      orderedRepos = orderedRepos.slice(0, 5)
+
+      setRepos(orderedRepos);
     };
 
     if (username) {
@@ -43,9 +51,9 @@ const Repos = () => {
       {repos && repos.length === 0 && <p>Não há repositórios.</p>}
       {repos && repos.length > 0 && (
         <div className={classes.repos_container}>
-            {repos.map((repo: RepoProps) => (
-                <Repo key={repo.name} {...repo}/>
-            ))}
+          {repos.map((repo: RepoProps) => (
+            <Repo key={repo.name} {...repo} />
+          ))}
         </div>
       )}
     </div>
